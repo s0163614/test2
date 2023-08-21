@@ -1,25 +1,13 @@
 <?php
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-	$phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $text = $_POST['text'];
-
-	$to = "sirodzhovss@mail.ru"; 
-	$date = date ("d.m.Y"); 
-	$time = date ("h:i");
-	$from = $email;
-	$subject = "Заявка c сайта";
-
-	
-	$msg="
-    Имя: $name /n
-    Фамилия: $surname /n
-    Телефон: $phone /n
-    Почта: $email /n
-    Текст: $text"; 	
-	mail($to, $subject, $msg, "From: $from ");
-
+if(isset($_POST['name']) && isset($_POST['email'])){
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  
+  $data = array($name, $email);
+  $file = fopen('data.csv', 'a'); // "a" означает, что файл будет открыт для записи в конец
+  fputcsv($file, $data);
+  fclose($file);
+  
+  echo "Данные успешно сохранены в файле data.csv";
+}
 ?>
-
-<p>Привет, форма отправлена</p>
